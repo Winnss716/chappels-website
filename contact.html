@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Quote - Chapells Fencing & Land Services</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚒</span>
+        Chapells<span class="accent"> Fencing & Land Services</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="contact.html" class="nav-cta">Free Quote</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header light">
+        <p class="section-label">Contact Us</p>
+        <h2>Request a Free Quote</h2>
+        <p class="section-sub">Tell us about your project and we'll get back to you promptly.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="info-item">
+            <div class="info-icon">&#128222;</div>
+            <div>
+              <h4>Call or Text</h4>
+              <p>We're ready to talk about your project.</p>
+              <a href="tel:+15551234567" class="info-link">(555) 123-4567</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">&#9993;</div>
+            <div>
+              <h4>Email Us</h4>
+              <p>Send us details and we'll respond quickly.</p>
+              <a href="mailto:info@chappelslandclearing.com" class="info-link">info@chappelslandclearing.com</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">&#128205;</div>
+            <div>
+              <h4>Service Area</h4>
+              <p>We serve the surrounding region — call to confirm your area.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">&#128336;</div>
+            <div>
+              <h4>Hours</h4>
+              <p>Monday – Saturday: 7am – 6pm<br />Sunday: By appointment</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="John Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="service">Service Needed</label>
+            <select id="service" name="service">
+              <option value="">Select a service...</option>
+              <option value="bushogging">Bushogging</option>
+              <option value="land-clearing">Land Clearing</option>
+              <option value="junk-removal">Junk Removal</option>
+              <option value="excavator">Excavator Work</option>
+              <option value="multiple">Multiple Services</option>
+              <option value="other">Other / Not Sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Tell Us About Your Project</label>
+            <textarea id="message" name="message" rows="4" placeholder="Describe your land, acreage, what needs to be done, your timeline, etc."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width">Send Message</button>
+          <div id="form-success" class="form-success" style="display:none;">
+            Thanks! We'll be in touch shortly.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-logo">Chapells Fencing &amp; Land Services</p>
+          <p>Professional land services you can count on. Licensed, insured, and ready to work.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-services">
+          <h4>Services</h4>
+          <ul>
+            <li>Fencing Installation</li>
+            <li>Bushogging</li>
+            <li>Excavator Work</li>
+            <li>Junk Removal</li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+          <p><a href="mailto:info@chappelslandclearing.com">info@chappelslandclearing.com</a></p>
+          <p>Mon–Sat: 7am – 6pm</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Chapells Fencing &amp; Land Services. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
