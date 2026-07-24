@@ -16,36 +16,30 @@ navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
 
-// Contact form email submit
+// Contact form submit (Formspree)
 async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
-  const name = form.name.value.trim();
-  const phone = form.phone.value.trim();
-  const email = form.email.value.trim();
-  const service = form.service.value || 'Not specified';
-  const message = form.message.value.trim();
   const successBox = document.getElementById('form-success');
 
-  const payload = { name, phone, email, service, message };
-
   try {
-    const response = await fetch('/send-email', {
+    const response = await fetch(form.action, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
     });
 
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
-      throw new Error(data.error || 'Unable to send the message.');
+      const errorMessage = (data.errors || []).map(err => err.message).join(', ');
+      throw new Error(errorMessage || 'Unable to send the message.');
     }
 
     successBox.textContent = 'Thanks! Your request has been sent.';
     successBox.style.display = 'block';
     form.reset();
   } catch (error) {
-    console.error('Email send failed:', error);
+    console.error('Form submit failed:', error);
     successBox.textContent = 'Unable to send the message right now. Please call or email directly.';
     successBox.style.display = 'block';
   }
@@ -54,6 +48,30 @@ async function handleSubmit(e) {
     successBox.style.display = 'none';
     successBox.textContent = "Thanks! We'll be in touch shortly.";
   }, 5000);
+}
+
+// Gallery lightbox
+const lightbox = document.getElementById('lightbox');
+if (lightbox) {
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      lightboxImg.src = item.dataset.full;
+      lightboxImg.alt = item.querySelector('img').alt;
+      lightbox.classList.add('open');
+    });
+  });
+
+  const closeLightbox = () => lightbox.classList.remove('open');
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 }
 
 // Scroll-reveal cards
@@ -66,7 +84,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.service-card, .point, .info-item').forEach(el => {
+document.querySelectorAll('.service-card, .point, .info-item, .gallery-item').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(24px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
