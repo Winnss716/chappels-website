@@ -50,27 +50,72 @@ async function handleSubmit(e) {
   }, 5000);
 }
 
-// Gallery lightbox
+// Gallery lightbox / album viewer
 const lightbox = document.getElementById('lightbox');
 if (lightbox) {
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+
+  let currentAlbum = [];
+  let currentIndex = 0;
+  let currentAlt = '';
+
+  const renderLightbox = () => {
+    lightboxImg.src = currentAlbum[currentIndex];
+    lightboxImg.alt = currentAlt;
+    const hasMultiple = currentAlbum.length > 1;
+    lightboxPrev.style.display = hasMultiple ? 'flex' : 'none';
+    lightboxNext.style.display = hasMultiple ? 'flex' : 'none';
+    lightboxCounter.textContent = hasMultiple ? `${currentIndex + 1} / ${currentAlbum.length}` : '';
+  };
+
+  const openLightbox = (album, alt, startIndex = 0) => {
+    currentAlbum = album;
+    currentAlt = alt;
+    currentIndex = startIndex;
+    renderLightbox();
+    lightbox.classList.add('open');
+  };
 
   document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-      lightboxImg.src = item.dataset.full;
-      lightboxImg.alt = item.querySelector('img').alt;
-      lightbox.classList.add('open');
-    });
+    const album = item.dataset.album.split(',').map(src => src.trim()).filter(Boolean);
+    const alt = item.querySelector('img').alt;
+
+    item.querySelector('img').addEventListener('click', () => openLightbox(album, alt, 0));
+
+    const seeAlbumBtn = item.querySelector('.see-album');
+    if (seeAlbumBtn) {
+      seeAlbumBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(album, alt, 0);
+      });
+    }
   });
 
   const closeLightbox = () => lightbox.classList.remove('open');
+  const showPrev = () => {
+    currentIndex = (currentIndex - 1 + currentAlbum.length) % currentAlbum.length;
+    renderLightbox();
+  };
+  const showNext = () => {
+    currentIndex = (currentIndex + 1) % currentAlbum.length;
+    renderLightbox();
+  };
+
   lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+  lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
   });
 }
 
