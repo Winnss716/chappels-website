@@ -306,7 +306,7 @@ img { display: block; max-width: 100%; }
 .service-card {
   background: linear-gradient(135deg, #fafaf8 0%, #f0ede5 100%);
   border-radius: 2px;
-  padding: 28px 24px 24px;
+  padding: 18px 16px 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.3);
   border-left: 8px solid var(--orange);
   border-top: 2px solid var(--rust);
