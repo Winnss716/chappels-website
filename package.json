@@ -1,7 +1,7 @@
 {
   "name": "chappels-website",
   "version": "1.0.0",
-  "description": "Chapells Fencing & Land Services website with Gmail email backend",
+  "description": "Chapells Land Clearing and More website with Gmail email backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
